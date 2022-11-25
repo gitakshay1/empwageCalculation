@@ -32,5 +32,9 @@ do
 	fi
 	salary=$(($perHourSalary * $wHour));
 	totalSalary=$(($totalSalary + $salary));
+	dailyWage[$totalWorkingHour]=$(($wHour*$perHourSalary))
 	((day++));
 done
+
+totalSalary=$(($totalWorkingHour*$perHourSalary));
+echo ${dailywage[@]}
