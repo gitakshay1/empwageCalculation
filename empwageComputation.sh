@@ -1,26 +1,42 @@
 echo "Welcome to Employee Wage Computation Program"
 
-isPartTime=1;
-isFullTime=2;
-empRatePerHr=20;
-empCheck=$((RANDOM%2));
+declare -A dailyWage
+function calculateWorkingHour() {
+	case $1 in
+		0)
+			workingHour=0;
+			;;
 
-case $empCheck in
-	1)
-	echo "Employee is present";
-	empHrs=8;
-	;;
+		1)
+			workingHour=8;
+			;;
+		2)
+			workingHour=4;
+			;;
+	esac;
+	echo $workingHour;
+}
 
-	2)
-	echo "Employee is working as part time";
-	empHrs=4;
-	;;
+perHourSalary=20;
+totalSalary=0;
+totalWorkingHour=0;
+day=1;
 
-	*)
-	empHrs=0
-	;;
+while [[ $day -le 20 && $totalWorkingHour -lt 40 ]]
+do
+	wHour=$(calculateWorkingHour $((RANDOM%3)));
+	totalWorkingHour=$(($totalWorkingHour + $wHour));
+	if [ $totalWorkingHour -gt 40 ]
+	then
+		totalWorkingHour=$(($totalWorkingHour - $wHour));
+		break;
+	fi
+	salary=$(($perHourSalary * $wHour));
+	totalSalary=$(($totalSalary + $salary));
+	dailyWage["Day "$totalWorkingHour]="$(($wHour*$perHourSalary))"
+	((day++));
+done
 
-esac
-
-salary=$(($empHrs*$empRatePerHr));
-
+totalSalary=$(($totalWorkingHour*$perHourSalary));
+echo ${dailywage[@]}
+echo ${!dailywage[@]}
