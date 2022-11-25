@@ -1,5 +1,6 @@
 echo "Welcome to Employee Wage Computation Program"
 
+declare -A dailyWage
 function calculateWorkingHour() {
 	case $1 in
 		0)
@@ -32,9 +33,10 @@ do
 	fi
 	salary=$(($perHourSalary * $wHour));
 	totalSalary=$(($totalSalary + $salary));
-	dailyWage[$totalWorkingHour]=$(($wHour*$perHourSalary))
+	dailyWage["Day "$totalWorkingHour]="$(($wHour*$perHourSalary))"
 	((day++));
 done
 
 totalSalary=$(($totalWorkingHour*$perHourSalary));
 echo ${dailywage[@]}
+echo ${!dailywage[@]}
